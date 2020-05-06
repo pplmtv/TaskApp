@@ -12,7 +12,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 
-const  val EXTRA_TASK = "jp.techacademy.yuu.taskapp.TASK"
+const val EXTRA_TASK = "jp.techacademy.yuu.taskapp.TASK"
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mRealm: Realm
