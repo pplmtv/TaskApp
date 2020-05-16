@@ -93,12 +93,15 @@ class MainActivity : AppCompatActivity() {
         search.setOnQueryTextListener(object:SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
                 // text changed
-                return false
+                return true
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
                 // submit button presed
-                return false
+                if (query!!.isNotEmpty()) {
+                    queryListView(query)
+                }
+                return true
             }
         })
 
@@ -119,9 +122,9 @@ class MainActivity : AppCompatActivity() {
         mTaskAdapter.notifyDataSetChanged()
     }
 
-    private fun queryListView() {
+    private fun queryListView(query: String) {
         // Realmデータベースから、「全てのデータを所得して新しい日時順に並べた結果」を取得
-        val taskRealmResults = mRealm.where(Task::class.java).equalTo("category","").findAll().sort("date", Sort.DESCENDING)
+        val taskRealmResults = mRealm.where(Task::class.java).equalTo("category",query).findAll().sort("date", Sort.DESCENDING)
 
         // 上記の結果を、TaskListとしてセットする
         mTaskAdapter.taskList = mRealm.copyFromRealm(taskRealmResults)
@@ -130,7 +133,7 @@ class MainActivity : AppCompatActivity() {
         listView1.adapter = mTaskAdapter
 
         // 表示を更新するために、アダプターにデータが変更されたことを知らせる
-        //mTaskAdapter.notifyDataSetChanged()
+        mTaskAdapter.notifyDataSetChanged()
     }
 
     override fun onDestroy() {
