@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
+import android.widget.SearchView
 
 const val EXTRA_TASK = "jp.techacademy.yuu.taskapp.TASK"
 
@@ -89,6 +90,18 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        search.setOnQueryTextListener(object:SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String): Boolean {
+                // text changed
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                // submit button presed
+                return false
+            }
+        })
+
         reloadListView()
     }
 
@@ -104,6 +117,20 @@ class MainActivity : AppCompatActivity() {
 
         // 表示を更新するために、アダプターにデータが変更されたことを知らせる
         mTaskAdapter.notifyDataSetChanged()
+    }
+
+    private fun queryListView() {
+        // Realmデータベースから、「全てのデータを所得して新しい日時順に並べた結果」を取得
+        val taskRealmResults = mRealm.where(Task::class.java).equalTo("category","").findAll().sort("date", Sort.DESCENDING)
+
+        // 上記の結果を、TaskListとしてセットする
+        mTaskAdapter.taskList = mRealm.copyFromRealm(taskRealmResults)
+
+        // TaskのListView用のアダプタに渡す
+        listView1.adapter = mTaskAdapter
+
+        // 表示を更新するために、アダプターにデータが変更されたことを知らせる
+        //mTaskAdapter.notifyDataSetChanged()
     }
 
     override fun onDestroy() {
