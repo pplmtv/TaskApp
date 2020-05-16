@@ -22,4 +22,12 @@
         android:src="@drawable/plus"
         app:backgroundTint="@color/colorPrimary"/>
 
-    </android.support.design.widget.CoordinatorLayout>
+    <SearchView
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:layout_gravity="bottom|end"
+        android:queryHint="検索" />
+
+</android.support.design.widget.CoordinatorLayout>
