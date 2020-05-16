@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:iconifiedByDefault="false"
             android:layout_gravity="bottom|end"
-            android:queryHint="検索"/>
+            android:queryHint="カテゴリー検索"/>
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
